@@ -5,10 +5,24 @@ import { Completed } from './completed'
 import { Progress }  from './progress'
 
 
-const AppContainer = styled.div`
+const Container = styled.div`
 
 display: flex;
 justify-content: center;
+flex-direction: column;
+
+padding: 25px 0 25px 0 ;
+width: 80vw;
+
+
+
+`
+
+
+const AppContainer = styled.div`
+
+display: flex;
+justify-content: space-between;
 flex-direction: row;
 
 padding: 25px 0 25px 0 ;
@@ -17,9 +31,50 @@ padding: 25px 0 25px 0 ;
 
 `
 
+const InputTodoContainer = styled.form`
+
+
+
+display: flex;
+
+border-radius: 5px;
+
+
+
+
+`
+
+const InputTodo = styled.input`
+height: 60px;
+margin: 0;
+width: 100%;
+border: none;
+display: flex;
+background transparent;
+padding: 0 0 0 25px;
+
+border-radius: 5px;
+font-size: 15px;
+
+
+
+&:focus{
+  
+
+    outline: none;
+}
+
+&::placeholder {
+    color: lightGrey;
+    font-size: 15px;
+  }
+
+
+`
+
 
 const TodoContainer = styled.div`
-width: 40vw;
+width: 50vw;
 
 display: flex;
 
@@ -62,7 +117,8 @@ display: flex;
 align-items: center;
 padding: 0 25px 0 25px;
 justify-content: space-between;
-margin: 0 0 0 25px;
+margin: 0 25px 0 0px;
+
 
 
 &:hover{
@@ -100,7 +156,98 @@ position: relative;
 const DateTime = styled.div`
 
 
-font-size: 10px;
+font-size: 8px;
+width: 75px;
+text-align: right;
+
+
+
+`
+
+const Logo = styled.div`
+
+
+font-size: 30px;
+
+margin: 25px 0;
+font-weight: 700;
+
+
+
+
+`
+
+export const Message = styled.div`
+
+
+font-size: 15px;
+color: blue;
+transition: 1s ease;
+
+animation: 2s blink ease infinite;
+
+
+
+
+
+
+`
+
+const Header = styled.div`
+
+
+font-size: 15px;
+color: blue;
+display: flex;
+justify-content: space-between;
+align-items: center;
+
+
+
+
+
+`
+
+const Switch = styled.div`
+
+
+font-size: 15px;
+
+
+
+
+width: 25px;
+height: 25px;
+border-radius: 50px;
+transition: 0.3s ease;
+
+
+
+`
+
+
+const DarkMode = styled.div`
+
+
+font-size: 15px;
+color: blue;
+border: 1px solid blue;
+width: 50px;
+height: 25px;
+border-radius: 50px;
+position: relative;
+cursor: pointer;
+
+&:hover ${Switch}{
+
+    transform: scale(0.9);
+    transition: 0.3s ease;
+    
+    
+}
+
+
+
 
 
 
@@ -108,7 +255,11 @@ font-size: 10px;
 
 
 
-export const TodoForm = () => {
+
+
+export const TodoForm = ({dark, setDark, colorOne, colorTwo}) => {
+
+
 
 
     // list of todos //
@@ -133,6 +284,8 @@ export const TodoForm = () => {
     // handle form submit //
     const handleSubmit = (e) => {
 
+        
+
         e.preventDefault();
 
         const randomNum = () =>{
@@ -141,9 +294,11 @@ export const TodoForm = () => {
 
         };
 
-        todos.push({value:inputValue, completed:false, date:new Date().toString().slice(0, 24), id:randomNum()  })
+        todos.push({value:inputValue, completed:false, date:new Date(), id:randomNum()  })
 
         setTodos([...todos])
+
+        setInputValue('')
 
 
     }
@@ -204,6 +359,28 @@ export const TodoForm = () => {
         return(
         <TodoItemContainer key={index} >
 
+
+
+        <TodoItemCard  onClick={() => deleteTodo(index, todos)} style={{ 
+            border: '1px solid blue', 
+            color: todos.completed ? colorOne : colorTwo,
+            background: todos.completed ? colorTwo : colorOne
+            
+            
+            }} >
+            
+            {todos.value}
+
+
+        <DateTime>
+            {todos.date.toString().slice(0, 24)}
+        </DateTime>
+
+            
+            
+        </TodoItemCard>
+
+
         <DeleteButton onClick={() => completeTodo(todos, index)} style={{ 
             border: '1px solid blue', 
             color: todos.completed ? 'white' : 'blue',
@@ -217,25 +394,6 @@ export const TodoForm = () => {
                 
             </DeleteButton>
 
-        <TodoItemCard  onClick={() => deleteTodo(index, todos)} style={{ 
-            border: '1px solid blue', 
-            color: todos.completed ? 'white' : 'blue',
-            background: todos.completed ? 'blue' : 'white'
-            
-            
-            }} >
-            
-            {todos.value}
-
-
-        <DateTime>
-            {todos.date}
-        </DateTime>
-
-            
-            
-        </TodoItemCard>
-
 
         </TodoItemContainer>
 
@@ -248,9 +406,15 @@ export const TodoForm = () => {
 
     return(
 
-<>
+<Container>
+<Header style={{color: colorTwo}}>
+<Logo>todo</Logo>
 
-        <Progress todos={todos} completed={completeTodos}></Progress>
+
+<DarkMode onClick={() => setDark(!dark)} style={{ color: colorTwo, border: `1px solid ${colorTwo}` }}><Switch style={{ color: colorTwo, background: colorTwo, position: 'absolute', right: dark ? '0px' : '25px' }} ></Switch></DarkMode>
+</Header>
+
+        <Progress todos={todos} completed={completeTodos} colorTwo={colorTwo} colorOne={colorOne}></Progress>
     
         <AppContainer>
 
@@ -264,30 +428,31 @@ export const TodoForm = () => {
             
 
 
-        <form onSubmit={handleSubmit}>
-            <TextField onChange={handleChange}  style={{width:'100%'}} value={inputValue} id="outlined-basic" label="Todo" variant="outlined" ></TextField>
+        <InputTodoContainer onSubmit={handleSubmit}>
+            <InputTodo onChange={handleChange} style={{ color: colorTwo, border: `1px solid ${colorTwo}` }}  value={inputValue} placeholder={'add todo'}></InputTodo>
             
             
-        </form>
+        </InputTodoContainer>
       
         {todoItems}
 
     
         </TodoContainer>
 
-        <Completed setCompleteTodos={setCompleteTodos} completeTodos={completeTodos} todos={todos} setTodos={setTodos}></Completed>
+        <Completed setCompleteTodos={setCompleteTodos} completeTodos={completeTodos} todos={todos} setTodos={setTodos} colorOne={colorOne} colorTwo={colorTwo}></Completed>
 
         
 
 
-        
+    
 
         </AppContainer>
+        <Message style={{ color: colorTwo}}>{todos.length == 1 ? 'Click on todo to delete' : todos.length == 0 ? 'Add todo to get started' : '' }</Message>
 
 
 
 
-</>
+        </Container>
         
     )
 

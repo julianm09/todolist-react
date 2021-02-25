@@ -13,7 +13,7 @@ const Progressbar = styled.div`
   z-index: 100;
   transition: ease 0.5s;
   border: 1px solid blue;
-  margin: 25px 0 0 0;
+
 `;
 const Progression = styled.div`
   width: 10vw;
@@ -28,7 +28,7 @@ const Progression = styled.div`
   z-index: 100;
 `;
 
-export const Progress = ({ todos, completed }) => {
+export const Progress = ({ todos, completed, colorOne, colorTwo }) => {
 
 
 
@@ -42,12 +42,12 @@ export const Progress = ({ todos, completed }) => {
 
   const finished = () => {
     if (progress() === 100) {
-      return "1px solid blue";
+      return ` 1px solid ${colorTwo}`;
     }
   };
 
   return (
-    <Progressbar style={{ border: finished() }}>
+    <Progressbar style={{ border: '1px solid ' + colorTwo }}>
       <Progression style={{ width: progress() + "%" }} />
     </Progressbar>
   );

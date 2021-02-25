@@ -1,0 +1,25 @@
+body{
+    font-size: 15px;
+    
+}
+
+.App{
+    width: 100vw;
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+
+}
+
+@keyframes blink{
+    from{
+        opacity: 0%
+    }
+    50%{
+        opacity: 100%
+    }
+    to{
+        opacity: 0
+    }
+}

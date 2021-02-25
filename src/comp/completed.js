@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import { TextField } from '@material-ui/core';
 import styled from 'styled-components'
+import { Message } from './todoForm'
 
 
 
 const CompletedTodoContainer = styled.div`
-    width: 25vw; 
+    width: 30vw; 
     height: calc(100vw-50px;);
     background: ;
     display: flex;
@@ -18,6 +19,10 @@ const CompletedTodoContainer = styled.div`
     color: blue;
     margin-left: 25px;
     position: relative;
+    max-height: 80vh;
+    position: sticky;
+    top: 10vh;
+
 
     @media (max-width: 1000px) {
         display: none;
@@ -50,16 +55,40 @@ margin: 10px
 
 `
 
-const ClearButton = styled.div`
+const CompleteTodos = styled.div`
 
 
-
+font-size: 15px
 
 
 
 `
 
-export const Completed = ({ completeTodos, setCompleteTodos, todos, setTodos }) => {
+const ClearButton = styled.div`
+
+
+position: absolute;
+top: 0;
+right: 0;
+background: blue;
+color: white;
+font-size: 12px;
+padding: 12px;
+border-radius: 0 0 0 5px;
+cursor: pointer;
+transition: 0.3s;
+
+&:hover{
+    border-radius:  5px;
+    transition: 0.3s;
+    transform:scale(0.9)
+
+}
+
+
+`
+
+export const Completed = ({ completeTodos, setCompleteTodos, todos, setTodos, colorOne, colorTwo }) => {
 
     const clearCompleted = () => {
         setCompleteTodos([])
@@ -75,7 +104,7 @@ export const Completed = ({ completeTodos, setCompleteTodos, todos, setTodos }) 
     const completedList = completeTodos.map((completed, index) => {
 
         return(
-            <CompletedItem key={index}>{completed.value}</CompletedItem>
+            <CompletedItem key={index}>{'✔ '+completed.value}</CompletedItem>
         )
 
     })
@@ -84,24 +113,29 @@ export const Completed = ({ completeTodos, setCompleteTodos, todos, setTodos }) 
     
 
     return(
-
+<>
         
-        
+  
 
-        <CompletedTodoContainer>
+        <CompletedTodoContainer style={{ color: colorTwo, border: `1px solid ${colorTwo}` }}>
+
+        {completeTodos.length > 0 ? <ClearButton style={{ color: colorTwo, background: colorOne, border: '1px solid' + colorTwo }}  onClick={clearCompleted}>clear</ClearButton> : ''}
 
             
 
-            <CompleteHeader>Completed {completeTodos.length}</CompleteHeader>
+            <CompleteHeader style={{ color: colorTwo, background: colorOne}}>Completed {completeTodos.length}</CompleteHeader>
 
 
-            {completeTodos.length == 0 ? 'complete an item' : completedList}
+            <CompleteTodos>{completeTodos.length == 0 ? 'Complete an item' : completedList}</CompleteTodos>
 
 
-            {completeTodos.length > 0 ? <ClearButton onClick={clearCompleted}>clear</ClearButton> : ''}
+            
 
         
         </CompletedTodoContainer>
 
+        
+
+</>
     )
 }
