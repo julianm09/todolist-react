@@ -26,7 +26,11 @@ const Container = styled.div`
   flex-direction: column;
 
   padding: 25px 0 25px 0;
-  width: 80vw;
+  width: 60vw;
+
+  @media (max-width: 1000px) {
+    width: 90vw;
+  }
 `;
 
 const AppContainer = styled.div`
@@ -81,7 +85,7 @@ const TodoContainer = styled.div`
   flex-direction: column;
 
   @media (max-width: 1000px) {
-    width: 80vw;
+    width: 90vw;
   }
 `;
 
