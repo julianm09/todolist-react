@@ -24,6 +24,7 @@ const CompletedTodoContainer = styled.div`
     top: 10vh;
 
 
+
     @media (max-width: 1000px) {
         display: none;
       }
@@ -70,13 +71,13 @@ const ClearButton = styled.div`
 position: absolute;
 top: 0;
 right: 0;
-background: blue;
-color: white;
+
 font-size: 12px;
 padding: 12px;
-border-radius: 0 0 0 5px;
+border-radius:5px;
 cursor: pointer;
 transition: 0.3s;
+
 
 &:hover{
     border-radius:  5px;
@@ -119,7 +120,7 @@ export const Completed = ({ completeTodos, setCompleteTodos, todos, setTodos, co
 
         <CompletedTodoContainer style={{ color: colorTwo, border: `1px solid ${colorTwo}` }}>
 
-        {completeTodos.length > 0 ? <ClearButton style={{ color: colorTwo, background: colorOne, border: '1px solid' + colorTwo }}  onClick={clearCompleted}>clear</ClearButton> : ''}
+        {completeTodos.length > 0 ? <ClearButton style={{ color: colorOne, background: colorTwo, border: `1px solid ${colorOne}` }}  onClick={clearCompleted}>clear</ClearButton> : ''}
 
             
 

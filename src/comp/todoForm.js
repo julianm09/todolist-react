@@ -124,8 +124,8 @@ margin: 0 25px 0 0px;
 &:hover{
     transition: ease 0.3s;
     transform: scale(1.02);
-    box-shadow:  8px 8px 16px #fafafa,
-    -8px -8px 16px #ffffff;
+    box-shadow: 
+    0px 0px 10px #ffffff;
 }
 `
 
@@ -143,7 +143,7 @@ display: flex;
 align-items: center;
 justify-content: center;
 
-border: 1px solid blue;
+
 position: relative;
 
 &:hover{
@@ -362,9 +362,10 @@ export const TodoForm = ({dark, setDark, colorOne, colorTwo}) => {
 
 
         <TodoItemCard  onClick={() => deleteTodo(index, todos)} style={{ 
-            border: '1px solid blue', 
+            border: `1px solid ${colorTwo}`, 
             color: todos.completed ? colorOne : colorTwo,
-            background: todos.completed ? colorTwo : colorOne
+            background: todos.completed ? colorTwo : colorOne,
+            
             
             
             }} >
@@ -382,9 +383,9 @@ export const TodoForm = ({dark, setDark, colorOne, colorTwo}) => {
 
 
         <DeleteButton onClick={() => completeTodo(todos, index)} style={{ 
-            border: '1px solid blue', 
-            color: todos.completed ? 'white' : 'blue',
-            background: todos.completed ? 'blue' : 'white'
+            border: `1px solid ${colorTwo}`,
+            color: todos.completed ? colorOne : colorTwo,
+            background: todos.completed ? colorTwo: colorOne
             
             }}>
 
