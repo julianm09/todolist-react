@@ -1,3 +1,5 @@
-# An extremly simple todolist applicaion using react hooks.
+# todo.
 
-Demo: https://taigomayes.github.io/todolist-react/
+## An extremly simple todolist applicaion using react hooks.
+
+### Demo: https://taigomayes.github.io/todolist-react/
