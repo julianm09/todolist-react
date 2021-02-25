@@ -12,14 +12,3 @@ body{
 
 }
 
-@keyframes blink{
-    from{
-        opacity: 0%
-    }
-    50%{
-        opacity: 100%
-    }
-    to{
-        opacity: 0
-    }
-}

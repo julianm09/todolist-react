@@ -4,7 +4,6 @@ import styled from "styled-components";
 const Progressbar = styled.div`
   width: 100%;
   height: 10px;
-  background: white;
   position: absoulte;
   top: 10%;
   left: 10%;
@@ -13,12 +12,11 @@ const Progressbar = styled.div`
   z-index: 100;
   transition: ease 0.5s;
   border: 1px solid blue;
-
 `;
 const Progression = styled.div`
   width: 10vw;
   height: 10px;
-  background: blue;
+
   position: absoulte;
   top: 10%;
   left: 10%;
@@ -29,14 +27,11 @@ const Progression = styled.div`
 `;
 
 export const Progress = ({ todos, completed, colorOne, colorTwo }) => {
-
-
-
   const progress = () => {
     if (completed.length === 0) {
       return 0;
     } else {
-      return completed.length / todos.length * 100;
+      return (completed.length / todos.length) * 100;
     }
   };
 
@@ -47,8 +42,8 @@ export const Progress = ({ todos, completed, colorOne, colorTwo }) => {
   };
 
   return (
-    <Progressbar style={{ border: '1px solid ' + colorTwo }}>
-      <Progression style={{ width: progress() + "%" }} />
+    <Progressbar style={{ border: "1px solid " + colorTwo }}>
+      <Progression style={{ width: progress() + "%", background: colorTwo }} />
     </Progressbar>
   );
 };
